@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Калористка Анна</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #faf7f3;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 90%;
+      box-sizing: border-box;
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .top-block {
+      background-color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #2c2c2c;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      user-select: none;
+    }
+
+    .buttons-block {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      box-sizing: border-box;
+    }
+
+    .buttons-block button {
+      flex: 1;
+      padding: 15px 0;
+      font-size: 1.15rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff6f61;
+      color: white;
+      font-weight: 600;
+      transition: background-color 0.3s;
+      user-select: none;
+    }
+
+    .buttons-block button:hover {
+      background-color: #e65b4f;
+    }
+
+    .works-block {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 180px;
+    }
+
+    .square-button {
+      width: 100%;
+      height: 100%;
+      background-color: #ff6f61;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      border-radius: 16px;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 4px 8px rgba(255,111,97,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .square-button:hover {
+      background-color: #e65b4f;
+      box-shadow: 0 6px 12px rgba(230,91,79,0.5);
+    }
+
+    @media (max-width: 600px) {
+      .buttons-block {
+        flex-direction: row;
+      }
+      .buttons-block button {
+        margin: 0;
+      }
+      .works-block {
+        height: 140px;
+      }
+      .square-button {
+        font-size: 1.3rem;
+      }
+    }
+
+    /* Анимация перехода */
+    .transition-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: white;
+      z-index: 9999;
+      transition: left 0.5s ease;
+      pointer-events: auto;
+    }
+
+    .transition-overlay.hidden {
+      left: -100vw;
+      pointer-events: none;
+    }
+
+    .transition-overlay.active {
+      left: 0;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="transition-overlay"></div>
+
+  <div class="container">
+    <div class="top-block">
+      Калористка — Анна
+    </div>
+
+    <div class="buttons-block">
+      <button data-link="Adress.html">Адрес</button>
+      <button onclick="window.open('https://wa.me/Ваш_номер_без_плюса', '_blank')">Записаться</button>
+    </div>
+
+    <div class="works-block">
+      <div class="square-button" data-link="works.html">
+        Мои работы
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const overlay = document.querySelector('.transition-overlay');
+
+      // При загрузке страницы плавно скрываем белый блок (убираем с экрана)
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+      }, 100);
+
+      // Обработка кликов для переходов с анимацией
+      document.querySelectorAll('[data-link]').forEach(el => {
+        el.addEventListener('click', e => {
+          e.preventDefault();
+          const href = el.dataset.link;
+          if (!href) return;
+
+          // Показываем блок и выезжаем им
+          overlay.classList.remove('hidden');
+          overlay.classList.add('active');
+
+          setTimeout(() => {
+            window.location.href = href;
+          }, 500);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

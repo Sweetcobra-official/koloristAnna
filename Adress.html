@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Адрес - Калористка Анна</title>
+  <style>
+    * {
+     box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #faf7f3;
+      color: #333;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .transition-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: white;
+      z-index: 9999;
+      transition: left 0.5s ease;
+      pointer-events: auto;
+    }
+
+    .transition-overlay.hidden {
+      left: -100vw;
+      pointer-events: none;
+    }
+
+    .transition-overlay.active {
+      left: 0;
+      pointer-events: auto;
+    }
+
+    .content {
+      width: 100%;
+      max-width: 800px;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .address-block {
+      width: 100%;
+      background: white;
+      border-radius: 12px;
+      padding: 30px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+
+    .gis-link-button {
+      width: 100%;
+      max-width: 400px;
+      background-color: #3fa23f;
+      color: white;
+      font-weight: 700;
+      font-size: 1.3rem;
+      padding: 18px 0;
+      border-radius: 12px;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(63,162,63,0.4);
+      transition: background-color 0.3s;
+      margin-bottom: 30px;
+    }
+
+    .gis-link-button:hover {
+      background-color: #368f36;
+      box-shadow: 0 6px 16px rgba(54,143,54,0.6);
+    }
+
+    .footer {
+      width: 100%;
+      padding: 30px 20px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+    }
+
+    .back-button {
+      padding: 15px 30px;
+      font-size: 1.15rem;
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(255,111,97,0.3);
+      transition: background-color 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #e65b4f;
+    }
+
+    @media (max-width: 400px) {
+  .address-block {
+    font-size: 1rem;
+    padding: 20px 16px;
+  }
+
+  .gis-link-button {
+    font-size: 1rem;
+    padding: 16px 0;
+  }
+
+  .back-button {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="transition-overlay"></div>
+
+  <div class="content">
+    <div class="address-block">
+      г. Томск, Большая Подгорная улица, 87
+    </div>
+
+    <a
+      href="https://2gis.ru/tomsk/geo/422848120248412?m=84.953318%2C56.503432%2F16"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="gis-link-button"
+    >
+      Открыть на 2ГИС
+    </a>
+  </div>
+
+  <div class="footer">
+    <button class="back-button" data-link="index.html">Назад</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const overlay = document.querySelector('.transition-overlay');
+
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+      }, 100);
+
+      document.querySelectorAll('[data-link]').forEach(el => {
+        el.addEventListener('click', e => {
+          e.preventDefault();
+          const href = el.dataset.link;
+          if (!href) return;
+
+          overlay.classList.remove('hidden');
+          overlay.classList.add('active');
+
+          setTimeout(() => {
+            window.location.href = href;
+          }, 500);
+        });
+      });
+    });
+  </script>
+</body>
+
+
+</html>
